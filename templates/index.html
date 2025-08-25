@@ -1,0 +1,35 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FastAPI CRUD</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>📋 Item Management</h1>
+
+    <form method="post" action="/add">
+        <input type="number" name="id" placeholder="ID" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="text" name="description" placeholder="Description">
+        <input type="number" step="0.01" name="price" placeholder="Price" required>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <h2>Items</h2>
+    {% if items %}
+        <ul>
+            {% for item in items %}
+                <li>
+                    <strong>{{ item.name }}</strong> (ID: {{ item.id }}) — ₹{{ item.price }}
+                    <br>{{ item.description }}
+                    <a href="/delete/{{ item.id }}" class="delete-btn">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No items available.</p>
+    {% endif %}
+</body>
+</html>
